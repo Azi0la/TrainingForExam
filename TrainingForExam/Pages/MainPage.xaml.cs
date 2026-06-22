@@ -13,18 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TrainingForExam   
+namespace TrainingForExam.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для MainPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainPage : Page
     {
-        public MainWindow()
+        public MainPage()
         {
             InitializeComponent();
-            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            MainFrame.NavigationService.Navigate(new Pages.MainPage());
+        }
+
+        private void HairBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new HairListPage());
         }
     }
 }

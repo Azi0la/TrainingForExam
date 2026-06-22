@@ -13,18 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TrainingForExam   
+namespace TrainingForExam.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для MasterListPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MasterListPage : Page
     {
-        public MainWindow()
+        public MasterListPage()
         {
             InitializeComponent();
-            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            MainFrame.NavigationService.Navigate(new Pages.MainPage());
         }
     }
 }
