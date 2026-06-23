@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище test1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище test1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Haircuts">
           <Key>
             <PropertyRef Name="ID" />
@@ -82,7 +82,8 @@
             <End Role="Sessions" EntitySet="Sessions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="test1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -95,7 +96,7 @@
           <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Double" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Sessions" Relationship="test1Model.FK_Sessions_Haircuts" FromRole="Haircuts" ToRole="Sessions" />
+          <NavigationProperty Name="Sessions" Relationship="Self.FK_Sessions_Haircuts" FromRole="Haircuts" ToRole="Sessions" />
         </EntityType>
         <EntityType Name="Masters">
           <Key>
@@ -103,32 +104,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Sessions" Relationship="test1Model.FK_Sessions_Masters" FromRole="Masters" ToRole="Sessions" />
+          <NavigationProperty Name="Sessions" Relationship="Self.FK_Sessions_Masters" FromRole="Masters" ToRole="Sessions" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityContainer Name="test1Entities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Haircuts" EntityType="Self.Haircuts" />
-          <EntitySet Name="Masters" EntityType="Self.Masters" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Sessions" EntityType="test1Model.Sessions" />
-          <AssociationSet Name="FK_Sessions_Haircuts" Association="test1Model.FK_Sessions_Haircuts">
-            <End Role="Haircuts" EntitySet="Haircuts" />
-            <End Role="Sessions" EntitySet="Sessions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sessions_Masters" Association="test1Model.FK_Sessions_Masters">
-            <End Role="Masters" EntitySet="Masters" />
-            <End Role="Sessions" EntitySet="Sessions" />
-          </AssociationSet>
-          </EntityContainer>
         <EntityType Name="Sessions">
           <Key>
             <PropertyRef Name="ID" />
@@ -140,12 +117,22 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="IsBooked" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Haircuts" Relationship="test1Model.FK_Sessions_Haircuts" FromRole="Sessions" ToRole="Haircuts" />
-          <NavigationProperty Name="Masters" Relationship="test1Model.FK_Sessions_Masters" FromRole="Sessions" ToRole="Masters" />
+          <NavigationProperty Name="Haircuts" Relationship="Self.FK_Sessions_Haircuts" FromRole="Sessions" ToRole="Haircuts" />
+          <NavigationProperty Name="Masters" Relationship="Self.FK_Sessions_Masters" FromRole="Sessions" ToRole="Masters" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Sessions_Haircuts">
-          <End Type="test1Model.Haircuts" Role="Haircuts" Multiplicity="0..1" />
-          <End Type="test1Model.Sessions" Role="Sessions" Multiplicity="*" />
+          <End Role="Haircuts" Type="Self.Haircuts" Multiplicity="0..1" />
+          <End Role="Sessions" Type="Self.Sessions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Haircuts">
               <PropertyRef Name="ID" />
@@ -156,8 +143,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Sessions_Masters">
-          <End Type="test1Model.Masters" Role="Masters" Multiplicity="1" />
-          <End Type="test1Model.Sessions" Role="Sessions" Multiplicity="*" />
+          <End Role="Masters" Type="Self.Masters" Multiplicity="1" />
+          <End Role="Sessions" Type="Self.Sessions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Masters">
               <PropertyRef Name="ID" />
@@ -167,12 +154,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="test1Entities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Haircuts" EntityType="Self.Haircuts" />
+          <EntitySet Name="Masters" EntityType="Self.Masters" />
+          <EntitySet Name="Sessions" EntityType="Self.Sessions" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_Sessions_Haircuts" Association="Self.FK_Sessions_Haircuts">
+            <End Role="Haircuts" EntitySet="Haircuts" />
+            <End Role="Sessions" EntitySet="Sessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sessions_Masters" Association="Self.FK_Sessions_Masters">
+            <End Role="Masters" EntitySet="Masters" />
+            <End Role="Sessions" EntitySet="Sessions" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище test1ModelContainer" CdmEntityContainer="test1Entities1">
+        <EntityContainerMapping StorageEntityContainer="Хранилище test1ModelContainer" CdmEntityContainer="test1Entities2">
           <EntitySetMapping Name="Haircuts">
             <EntityTypeMapping TypeName="test1Model.Haircuts">
               <MappingFragment StoreEntitySet="Haircuts">
@@ -192,6 +193,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Sessions">
+            <EntityTypeMapping TypeName="test1Model.Sessions">
+              <MappingFragment StoreEntitySet="Sessions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Master" ColumnName="ID_Master" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID_Haircut" ColumnName="ID_Haircut" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IsBooked" ColumnName="IsBooked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="test1Model.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -200,19 +214,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sessions">
-            <EntityTypeMapping TypeName="test1Model.Sessions">
-              <MappingFragment StoreEntitySet="Sessions">
-                <ScalarProperty Name="IsBooked" ColumnName="IsBooked" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID_Haircut" ColumnName="ID_Haircut" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="ID_Master" ColumnName="ID_Master" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

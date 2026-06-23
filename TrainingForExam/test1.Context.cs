@@ -13,10 +13,10 @@ namespace TrainingForExam
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class test1Entities1 : DbContext
+    public partial class test1Entities2 : DbContext
     {
-        public test1Entities1()
-            : base("name=test1Entities1")
+        public test1Entities2()
+            : base("name=test1Entities2")
         {
         }
     
@@ -27,7 +27,7 @@ namespace TrainingForExam
     
         public virtual DbSet<Haircuts> Haircuts { get; set; }
         public virtual DbSet<Masters> Masters { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Sessions> Sessions { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }
