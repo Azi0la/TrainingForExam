@@ -28,8 +28,8 @@ namespace test2
         public virtual DbSet<Hotels> Hotels { get; set; }
         public virtual DbSet<RatingCriteria> RatingCriteria { get; set; }
         public virtual DbSet<ReviewRatings> ReviewRatings { get; set; }
-        public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Reviews> Reviews { get; set; }
     }
 }

@@ -8,13 +8,13 @@
         <EntityTypeShape EntityType="HotelReviewsDBModel.Hotels" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelReviewsDBModel.RatingCriteria" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelReviewsDBModel.ReviewRatings" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelReviewsDBModel.Reviews" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelReviewsDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelReviewsDBModel.Users" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <AssociationConnector Association="HotelReviewsDBModel.FK__Reviews__HotelId__5812160E" ManuallyRouted="false" />
         <AssociationConnector Association="HotelReviewsDBModel.FK__ReviewRat__Crite__5DCAEF64" ManuallyRouted="false" />
-        <AssociationConnector Association="HotelReviewsDBModel.FK__ReviewRat__Revie__5CD6CB2B" ManuallyRouted="false" />
-        <AssociationConnector Association="HotelReviewsDBModel.FK__Reviews__UserId__59063A47" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HotelReviewsDBModel.Reviews" Width="1.5" PointX="3" PointY="1.875" />
+        <AssociationConnector Association="HotelReviewsDBModel.FK__Reviews__HotelId__5812160E" />
+        <AssociationConnector Association="HotelReviewsDBModel.FK__ReviewRat__Revie__5CD6CB2B" />
+        <AssociationConnector Association="HotelReviewsDBModel.FK__Reviews__UserId__59063A47" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

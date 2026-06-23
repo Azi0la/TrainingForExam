@@ -27,7 +27,30 @@
         <Button x:Name="BackBTN" Width="100" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" 
                 Margin="15" Content="Назад" FontSize="25" Click="BackBTN_Click"/>
 
-        
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="Написать отзыв (1-5)" FontSize="26"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Чистота:" FontSize="16"/>
+                <TextBox x:Name="ClearTB" Width="150" Height="25" TextChanged="ClearTB_TextChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Сервис:" FontSize="16"/>
+                <TextBox x:Name="ServiceTB" Width="150" Height="25" TextChanged="ClearTB_TextChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Расположение:" FontSize="16"/>
+                <TextBox x:Name="PlaceTB" Width="120" Height="25" TextChanged="ClearTB_TextChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Цена/Качество:" FontSize="16"/>
+                <TextBox x:Name="PriceTB" Width="120" Height="25" TextChanged="ClearTB_TextChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Питание:" FontSize="16"/>
+                <TextBox x:Name="FoodTB" Width="150" Height="25" TextChanged="ClearTB_TextChanged"/>
+            </StackPanel>
+            <Button x:Name="SendBTN" Height="50" Width="100" Margin="15" Content="Отправить" FontSize="16" IsEnabled="False" Click="SendBTN_Click"/>
+        </StackPanel>
 
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
