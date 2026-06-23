@@ -6,9 +6,38 @@
       xmlns:local="clr-namespace:TrainingForExam.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MasterListPage">
-
+      Title="MasterListPage"
+      Background="Salmon">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Мастера: " FontSize="28"/>
+        <ListBox Grid.Row="1" x:Name="SessionList" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 HorizontalAlignment="Stretch" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" FontSize="20"/>
+                        <ListBox MouseDoubleClick="DateList_MouseDoubleClick"  x:Name="DateList" ItemsSource="{Binding DT}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" FontSize="16"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Stretch">
+                        
+                    </WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
         
     </Grid>
 </Page>

@@ -19,7 +19,7 @@ namespace TrainingForExam
         public System.DateTime Date { get; set; }
         public Nullable<int> ID_Haircut { get; set; }
         public string Name { get; set; }
-        public Nullable<int> Phone { get; set; }
+        public string Phone { get; set; }
         public bool IsBooked { get; set; }
     
         public virtual Haircuts Haircuts { get; set; }

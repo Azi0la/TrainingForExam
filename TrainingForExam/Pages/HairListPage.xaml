@@ -15,8 +15,14 @@
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Выберите прическу" FontSize="32" VerticalAlignment="Center" Margin="10"/>
-        <Button x:Name="BackBTN" Width="100" Height="50" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15" Content="Назад" FontSize="26" Click="BackBTN_Click"/>
-        <ListBox Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="HairList" MouseDoubleClick="HairList_MouseDoubleClick" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button x:Name="BackBTN" Width="100" Height="50" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                 Content="Назад" FontSize="26" Click="BackBTN_Click" Margin="0,0,10,0"/>
+            <Button x:Name="SkipBTN" Width="100" Height="50" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                Content="Скип" FontSize="26" Click="SkipBTN_Click"/>
+        </StackPanel>
+        <ListBox Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="HairList" 
+                 MouseDoubleClick="HairList_MouseDoubleClick" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -30,7 +36,6 @@
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel HorizontalAlignment="Stretch">
-                        
                     </WrapPanel>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>  

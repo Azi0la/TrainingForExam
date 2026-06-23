@@ -21,10 +21,14 @@ namespace TrainingForExam.Pages
     public partial class HairListPage : Page
     {
         public static List<Haircuts> Hairs = Core.Context.Haircuts.ToList();
-        public HairListPage()
+        public Masters curMast;
+        public string curDate;
+        public HairListPage(Masters MastID, String Date)
         {
             InitializeComponent();
             HairList.ItemsSource = Hairs;
+            curMast = MastID;
+            curDate = Date;
         }
 
         private void BackBTN_Click(object sender, RoutedEventArgs e)
@@ -34,7 +38,13 @@ namespace TrainingForExam.Pages
 
         private void HairList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+
+            NavigationService.Navigate(new OrderPage(curMast, curDate, HairList.SelectedItem as Haircuts));
+        }
+
+        private void SkipBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new OrderPage(curMast, curDate));
         }
     }
 }

@@ -20,9 +20,21 @@ namespace TrainingForExam.Pages
     /// </summary>
     public partial class MasterListPage : Page
     {
+        public static List<Masters> masters = Core.Context.Masters.ToList();
+        public static List<Sessions> sessions = Core.Context.Sessions.ToList();
         public MasterListPage()
         {
             InitializeComponent();
+            SessionList.ItemsSource = masters;
+            
+            
+            
+        }
+
+        private void DateList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListBox d && d.SelectedItem is string selectedDate) 
+                NavigationService.Navigate(new HairListPage(d.DataContext as Masters, selectedDate));
         }
     }
 }

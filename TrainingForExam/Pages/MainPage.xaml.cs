@@ -25,9 +25,10 @@ namespace TrainingForExam.Pages
             InitializeComponent();
         }
 
-        private void HairBTN_Click(object sender, RoutedEventArgs e)
+
+        private void MasterBTN_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new HairListPage());
+            NavigationService.Navigate(new MasterListPage());
         }
     }
 }

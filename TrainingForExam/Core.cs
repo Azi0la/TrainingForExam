@@ -8,6 +8,6 @@ namespace TrainingForExam
 {
     internal class Core
     {
-        public static test1Entities Context = new test1Entities();
+        public static test1Entities1 Context = new test1Entities1();
     }
 }

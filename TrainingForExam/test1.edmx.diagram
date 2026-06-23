@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9b3a6b5c55744ab5997ff39d6158e1af" Name="Diagram1">
+      <Diagram DiagramId="8c265e305f4f4553b2d0345d7448ac09" Name="Diagram1">
         <EntityTypeShape EntityType="test1Model.Haircuts" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="test1Model.Masters" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="test1Model.Sessions" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="test1Model.sysdiagrams" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <AssociationConnector Association="test1Model.FK_Sessions_Haircuts" ManuallyRouted="false" />
-        <AssociationConnector Association="test1Model.FK_Sessions_Masters" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="test1Model.Sessions" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="test1Model.FK_Sessions_Haircuts" />
+        <AssociationConnector Association="test1Model.FK_Sessions_Masters" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
