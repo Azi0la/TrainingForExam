@@ -12,16 +12,34 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="Заказ" FontSize="40" Margin="10"/>
-        <StackPanel Grid.Column="1">
+        <StackPanel Grid.Column="1" Margin="20,40,0,0">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Прическа: "/>
-                <TextBox/>
+                <TextBlock Text="Прическа: " FontSize="20"/>
+                <TextBlock Width="250" x:Name="HairCutTB" Margin="15,5,0,0" FontSize="16"/>
             </StackPanel>
-            
+            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                <TextBlock Text="Мастер: " FontSize="20"/>
+                <TextBlock Width="250" x:Name="MasterTB" Margin="15,5,0,0" FontSize="16"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                <TextBlock Text="Время: " FontSize="20"/>
+                <TextBlock Width="250" x:Name="TimeTB" Margin="15,0,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                <TextBlock Text="Ваше имя: " FontSize="20"/>
+                <TextBox Width="250" x:Name="NameTB" Margin="15,0,0,0" TextChanged="NameTB_TextChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                <TextBlock Text="Ваш номер телефона: " FontSize="20"/>
+                <TextBox Width="200" x:Name="PhoneTB" Margin="15,0,0,0" TextChanged="NameTB_TextChanged"/>
+            </StackPanel>
         </StackPanel>
+        <Button x:Name="BackBTN" Grid.Column="0" Width="100" Height="50" VerticalAlignment="Bottom" Margin="15" Content="Назад" FontSize="16" Click="BackBTN_Click"/>
+        <Button x:Name="OrderBTN" Grid.Column="2" Width="100" Height="50" VerticalAlignment="Bottom" Margin="15" 
+                Content="Оформить" FontSize="16" Click="OrderBTN_Click" IsEnabled="False"/>
     </Grid>
 </Page>
