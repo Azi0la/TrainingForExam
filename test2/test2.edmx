@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище HotelReviewsDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Hotels">
+          <Key>
+            <PropertyRef Name="HotelId" />
+          </Key>
+          <Property Name="HotelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Stars" Type="int" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RatingCriteria">
+          <Key>
+            <PropertyRef Name="CriterionId" />
+          </Key>
+          <Property Name="CriterionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="ReviewRatings">
+          <Key>
+            <PropertyRef Name="ReviewRatingId" />
+          </Key>
+          <Property Name="ReviewRatingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReviewId" Type="int" Nullable="false" />
+          <Property Name="CriterionId" Type="int" Nullable="false" />
+          <Property Name="Score" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="ReviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HotelId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ReviewDate" Type="datetime" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="OverallRating" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="RegistrationDate" Type="datetime" />
+          <Property Name="IsAdmin" Type="bit" />
+        </EntityType>
+        <Association Name="FK__ReviewRat__Crite__5DCAEF64">
+          <End Role="RatingCriteria" Type="Self.RatingCriteria" Multiplicity="1" />
+          <End Role="ReviewRatings" Type="Self.ReviewRatings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RatingCriteria">
+              <PropertyRef Name="CriterionId" />
+            </Principal>
+            <Dependent Role="ReviewRatings">
+              <PropertyRef Name="CriterionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReviewRat__Revie__5CD6CB2B">
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ReviewRatings" Type="Self.ReviewRatings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reviews">
+              <PropertyRef Name="ReviewId" />
+            </Principal>
+            <Dependent Role="ReviewRatings">
+              <PropertyRef Name="ReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__HotelId__5812160E">
+          <End Role="Hotels" Type="Self.Hotels" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotels">
+              <PropertyRef Name="HotelId" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="HotelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__UserId__59063A47">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище HotelReviewsDBModelContainer">
+          <EntitySet Name="Hotels" EntityType="Self.Hotels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RatingCriteria" EntityType="Self.RatingCriteria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReviewRatings" EntityType="Self.ReviewRatings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ReviewRat__Crite__5DCAEF64" Association="Self.FK__ReviewRat__Crite__5DCAEF64">
+            <End Role="RatingCriteria" EntitySet="RatingCriteria" />
+            <End Role="ReviewRatings" EntitySet="ReviewRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReviewRat__Revie__5CD6CB2B" Association="Self.FK__ReviewRat__Revie__5CD6CB2B">
+            <End Role="Reviews" EntitySet="Reviews" />
+            <End Role="ReviewRatings" EntitySet="ReviewRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__HotelId__5812160E" Association="Self.FK__Reviews__HotelId__5812160E">
+            <End Role="Hotels" EntitySet="Hotels" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__UserId__59063A47" Association="Self.FK__Reviews__UserId__59063A47">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HotelReviewsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Hotels">
+          <Key>
+            <PropertyRef Name="HotelId" />
+          </Key>
+          <Property Name="HotelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Stars" Type="Int32" />
+          <Property Name="ImageUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__HotelId__5812160E" FromRole="Hotels" ToRole="Reviews" />
+        </EntityType>
+        <EntityType Name="RatingCriteria">
+          <Key>
+            <PropertyRef Name="CriterionId" />
+          </Key>
+          <Property Name="CriterionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ReviewRatings" Relationship="Self.FK__ReviewRat__Crite__5DCAEF64" FromRole="RatingCriteria" ToRole="ReviewRatings" />
+        </EntityType>
+        <EntityType Name="ReviewRatings">
+          <Key>
+            <PropertyRef Name="ReviewRatingId" />
+          </Key>
+          <Property Name="ReviewRatingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReviewId" Type="Int32" Nullable="false" />
+          <Property Name="CriterionId" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RatingCriteria" Relationship="Self.FK__ReviewRat__Crite__5DCAEF64" FromRole="ReviewRatings" ToRole="RatingCriteria" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__ReviewRat__Revie__5CD6CB2B" FromRole="ReviewRatings" ToRole="Reviews" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="ReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HotelId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ReviewDate" Type="DateTime" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OverallRating" Type="Int32" />
+          <NavigationProperty Name="Hotels" Relationship="Self.FK__Reviews__HotelId__5812160E" FromRole="Reviews" ToRole="Hotels" />
+          <NavigationProperty Name="ReviewRatings" Relationship="Self.FK__ReviewRat__Revie__5CD6CB2B" FromRole="Reviews" ToRole="ReviewRatings" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Reviews__UserId__59063A47" FromRole="Reviews" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
+          <Property Name="IsAdmin" Type="Boolean" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__UserId__59063A47" FromRole="Users" ToRole="Reviews" />
+        </EntityType>
+        <Association Name="FK__Reviews__HotelId__5812160E">
+          <End Role="Hotels" Type="Self.Hotels" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotels">
+              <PropertyRef Name="HotelId" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="HotelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReviewRat__Crite__5DCAEF64">
+          <End Role="RatingCriteria" Type="Self.RatingCriteria" Multiplicity="1" />
+          <End Role="ReviewRatings" Type="Self.ReviewRatings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RatingCriteria">
+              <PropertyRef Name="CriterionId" />
+            </Principal>
+            <Dependent Role="ReviewRatings">
+              <PropertyRef Name="CriterionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReviewRat__Revie__5CD6CB2B">
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ReviewRatings" Type="Self.ReviewRatings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reviews">
+              <PropertyRef Name="ReviewId" />
+            </Principal>
+            <Dependent Role="ReviewRatings">
+              <PropertyRef Name="ReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__UserId__59063A47">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelReviewsDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Hotels" EntityType="Self.Hotels" />
+          <EntitySet Name="RatingCriteria" EntityType="Self.RatingCriteria" />
+          <EntitySet Name="ReviewRatings" EntityType="Self.ReviewRatings" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Reviews__HotelId__5812160E" Association="Self.FK__Reviews__HotelId__5812160E">
+            <End Role="Hotels" EntitySet="Hotels" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReviewRat__Crite__5DCAEF64" Association="Self.FK__ReviewRat__Crite__5DCAEF64">
+            <End Role="RatingCriteria" EntitySet="RatingCriteria" />
+            <End Role="ReviewRatings" EntitySet="ReviewRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReviewRat__Revie__5CD6CB2B" Association="Self.FK__ReviewRat__Revie__5CD6CB2B">
+            <End Role="Reviews" EntitySet="Reviews" />
+            <End Role="ReviewRatings" EntitySet="ReviewRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__UserId__59063A47" Association="Self.FK__Reviews__UserId__59063A47">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище HotelReviewsDBModelContainer" CdmEntityContainer="HotelReviewsDBEntities">
+          <EntitySetMapping Name="Hotels">
+            <EntityTypeMapping TypeName="HotelReviewsDBModel.Hotels">
+              <MappingFragment StoreEntitySet="Hotels">
+                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Stars" ColumnName="Stars" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RatingCriteria">
+            <EntityTypeMapping TypeName="HotelReviewsDBModel.RatingCriteria">
+              <MappingFragment StoreEntitySet="RatingCriteria">
+                <ScalarProperty Name="CriterionId" ColumnName="CriterionId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewRatings">
+            <EntityTypeMapping TypeName="HotelReviewsDBModel.ReviewRatings">
+              <MappingFragment StoreEntitySet="ReviewRatings">
+                <ScalarProperty Name="ReviewRatingId" ColumnName="ReviewRatingId" />
+                <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+                <ScalarProperty Name="CriterionId" ColumnName="CriterionId" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="HotelReviewsDBModel.Reviews">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="OverallRating" ColumnName="OverallRating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="HotelReviewsDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="HotelReviewsDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -13,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace test2
+namespace test2.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для RewievPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class RewievPage : Page
     {
-        public static Users user;
-        public MainWindow()
+        public RewievPage()
         {
             InitializeComponent();
-            MainFrame.NavigationService.Navigate(new Pages.AuthPage());
-            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
         }
     }
 }

@@ -6,9 +6,29 @@
       xmlns:local="clr-namespace:test2.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AuthPage">
+      Title="AuthPage"
+      Background="Salmon">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="1" Content="Триваго" VerticalAlignment="Top" 
+               HorizontalAlignment="Center" Margin="0,50,0,0" FontSize="30"/>
+
+        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <TextBlock Text="Логин:" FontSize="20"/>
+                <TextBox x:Name="LoginTB" Height="20" Width="150" Margin="5"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <TextBlock Text="Пароль:" FontSize="20"/>
+                <TextBox x:Name="PassTB" Height="20" Width="150" Margin="5"/>
+            </StackPanel>
+        </StackPanel>
+        <Button x:Name="AuthBTN" Height="50" Width="100" Content="Войти" FontSize="20" Click="AuthBTN_Click"/>
+        <Button Grid.Column="2" x:Name="RegBTN" Height="50" Width="100" Content="Регистрация" FontSize="16" Click="RegBTN_Click"/>
     </Grid>
 </Page>

@@ -6,9 +6,39 @@
       xmlns:local="clr-namespace:test2.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CatalogPage">
+      Title="CatalogPage"
+      Background="Salmon">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Отели" FontSize="36"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+            <TextBox x:Name="SearchTB" Width="200" Height="30"/>
+            <Button x:Name="SearchBTN" Width="100" Height="30" Margin="10,0,0,0" Content="Поиск" FontSize="20" Click="SearchBTN_Click"/>
+        </StackPanel>
+        <ListBox Grid.Row="1" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}"
+                 x:Name="HotelList" MouseDoubleClick="HotelList_MouseDoubleClick">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Image Source="{Binding ImageUrl}" Width="150" Height="150"/>
+                        <TextBlock Text="{Binding Name}" FontSize="16"/>
+                        <TextBlock Text="{Binding City}" FontSize="16"/>
+                        <TextBlock Text="{Binding Address}" FontSize="16"/>
+                        <TextBlock Text="{Binding Stars, StringFormat=Оценка: {0}}" FontSize="16"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Stretch">
+                    </WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </Page>

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrainingForExam
+namespace test2
 {
     internal class Core
     {
-        public static test1Entities2 Context = new test1Entities2();
+        public static HotelReviewsDBEntities Context = new HotelReviewsDBEntities();
     }
 }

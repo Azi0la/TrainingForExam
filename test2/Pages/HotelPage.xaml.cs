@@ -20,7 +20,7 @@ namespace test2.Pages
     /// </summary>
     public partial class HotelPage : Page
     {
-        public HotelPage()
+        public HotelPage(Hotels h)
         {
             InitializeComponent();
         }

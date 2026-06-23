@@ -24,5 +24,29 @@ namespace test2.Pages
         {
             InitializeComponent();
         }
+
+        private void LoginTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(LoginTB.Text) && !string.IsNullOrEmpty(PassTB.Text) &&
+                !string.IsNullOrEmpty(EmailTB.Text) && !string.IsNullOrEmpty(NameTB.Text))
+            {
+                RegBTN.IsEnabled = true;
+            }
+        }
+
+        private void RegBTN_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.user = new Users 
+            {
+                Username = LoginTB.Text,
+                PasswordHash = PassTB.Text,
+                Email = EmailTB.Text,
+                FullName = NameTB.Text
+            };
+            Core.Context.Users.Add(MainWindow.user);
+            Core.Context.SaveChanges();
+            MessageBox.Show("Регистрация успешна");
+            NavigationService.Navigate(new AuthPage());
+        }
     }
 }

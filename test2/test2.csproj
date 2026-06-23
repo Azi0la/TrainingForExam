@@ -35,8 +35,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\..\..\Downloads\Telegram Desktop\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\..\..\Downloads\Telegram Desktop\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +63,40 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core.cs" />
+    <Compile Include="Hotels.cs">
+      <DependentUpon>test2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RatingCriteria.cs">
+      <DependentUpon>test2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReviewRatings.cs">
+      <DependentUpon>test2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reviews.cs">
+      <DependentUpon>test2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>test2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="test2.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>test2.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="test2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>test2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="test2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>test2.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>test2.tt</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -114,13 +156,39 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="test2.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>test2.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="test2.edmx.diagram">
+      <DependentUpon>test2.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\grandplaza.jpg" />
+    <Resource Include="images\seaside.jpg" />
+    <Content Include="test2.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>test2.Context.cs</LastGenOutput>
+      <DependentUpon>test2.edmx</DependentUpon>
+    </Content>
+    <Content Include="test2.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>test2.edmx</DependentUpon>
+      <LastGenOutput>test2.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
