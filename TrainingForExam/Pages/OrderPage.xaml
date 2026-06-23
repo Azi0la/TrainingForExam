@@ -19,7 +19,7 @@
         <StackPanel Grid.Column="1">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Прическа: "/>
-                <TextBox
+                <TextBox/>
             </StackPanel>
             
         </StackPanel>
