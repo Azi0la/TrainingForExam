@@ -23,6 +23,12 @@ namespace test2.Pages
         public HotelPage(Hotels h)
         {
             InitializeComponent();
+            DataContext = h;
+        }
+
+        private void BackBTN_Click(object sender, RoutedEventArgs e)
+        {
+            if(NavigationService.CanGoBack) NavigationService.GoBack();
         }
     }
 }

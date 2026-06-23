@@ -10,6 +10,48 @@
       Background="Salmon">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+            <Image Source="{Binding ImageUrl}" Width="200" Height="200"/>
+            <TextBlock Text="{Binding Name}" FontSize="16"/>
+            <TextBlock Text="{Binding City}" FontSize="16"/>
+            <TextBlock Text="{Binding Address}" FontSize="16"/>
+            <TextBlock Text="{Binding Description}" FontSize="16"/>
+            <TextBlock Text="{Binding Stars, StringFormat=Оценка: {0}}" FontSize="16"/>
+        </StackPanel>
+        <Button x:Name="BackBTN" Width="100" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" 
+                Margin="15" Content="Назад" FontSize="25" Click="BackBTN_Click"/>
+
         
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Отзывы" FontSize="26" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <ListBox Grid.Row="1" x:Name="ReviewList"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Users.Username}"/>
+                            <TextBlock Text="{Binding OverallRating}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </Grid>
     </Grid>
 </Page>
