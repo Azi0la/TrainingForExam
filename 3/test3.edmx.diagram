@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="567b22e804eb49a78ba256952028e309" Name="Diagram1">
+        <EntityTypeShape EntityType="CafeDBModel.ComboDishes" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CafeDBModel.Combos" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CafeDBModel.Dishes" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CafeDBModel.DishType" Width="1.5" PointX="1.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="CafeDBModel.OrderItems" Width="1.5" PointX="6" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CafeDBModel.Orders" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CafeDBModel.Seats" Width="1.5" PointX="1.5" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="CafeDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="CafeDBModel.FK_ComboDishes_Combos" ManuallyRouted="false" />
+        <AssociationConnector Association="CafeDBModel.FK_ComboDishes_Dishes" ManuallyRouted="false" />
+        <AssociationConnector Association="CafeDBModel.FK_OrderItems_Combos" ManuallyRouted="false" />
+        <AssociationConnector Association="CafeDBModel.FK_Dishes_DishType" ManuallyRouted="false" />
+        <AssociationConnector Association="CafeDBModel.FK_OrderItems_Dishes" ManuallyRouted="false" />
+        <AssociationConnector Association="CafeDBModel.FK_OrderItems_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="CafeDBModel.FK_Orders_Seats" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
