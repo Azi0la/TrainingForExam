@@ -27,8 +27,8 @@ namespace _3
         public Nullable<decimal> WholeCash { get; set; }
         public Nullable<decimal> LeftCash { get; set; }
     
+        public virtual Seats Seats { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItems> OrderItems { get; set; }
-        public virtual Seats Seats { get; set; }
     }
 }

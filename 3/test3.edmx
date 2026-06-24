@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище CafeDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище CafeDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ComboDishes">
           <Key>
             <PropertyRef Name="ID" />
@@ -48,8 +48,8 @@
           <Property Name="OrderID" Type="int" Nullable="false" />
           <Property Name="DishID" Type="int" />
           <Property Name="ComboID" Type="int" />
-          <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="PriceAtOrder" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="PriceAtOrder" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -202,8 +202,7 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CafeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -226,7 +225,7 @@
           <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ComboDishes" Relationship="Self.FK_ComboDishes_Combos" FromRole="Combos" ToRole="ComboDishes" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_Combos" FromRole="Combos" ToRole="OrderItems" />
+          <NavigationProperty Name="OrderItems" Relationship="CafeDBModel.FK_OrderItems_Combos" FromRole="Combos" ToRole="OrderItems" />
         </EntityType>
         <EntityType Name="Dishes">
           <Key>
@@ -240,7 +239,7 @@
           <Property Name="ImagePath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ComboDishes" Relationship="Self.FK_ComboDishes_Dishes" FromRole="Dishes" ToRole="ComboDishes" />
           <NavigationProperty Name="DishType" Relationship="Self.FK_Dishes_DishType" FromRole="Dishes" ToRole="DishType" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_Dishes" FromRole="Dishes" ToRole="OrderItems" />
+          <NavigationProperty Name="OrderItems" Relationship="CafeDBModel.FK_OrderItems_Dishes" FromRole="Dishes" ToRole="OrderItems" />
         </EntityType>
         <EntityType Name="DishType">
           <Key>
@@ -249,20 +248,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Dishes" Relationship="Self.FK_Dishes_DishType" FromRole="DishType" ToRole="Dishes" />
-        </EntityType>
-        <EntityType Name="OrderItems">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="DishID" Type="Int32" />
-          <Property Name="ComboID" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="PriceAtOrder" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <NavigationProperty Name="Combos" Relationship="Self.FK_OrderItems_Combos" FromRole="OrderItems" ToRole="Combos" />
-          <NavigationProperty Name="Dishes" Relationship="Self.FK_OrderItems_Dishes" FromRole="OrderItems" ToRole="Dishes" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_OrderItems_Orders" FromRole="OrderItems" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -274,8 +259,8 @@
           <Property Name="Total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="WholeCash" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="LeftCash" Type="Decimal" Precision="10" Scale="2" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_Orders" FromRole="Orders" ToRole="OrderItems" />
           <NavigationProperty Name="Seats" Relationship="Self.FK_Orders_Seats" FromRole="Orders" ToRole="Seats" />
+          <NavigationProperty Name="OrderItems" Relationship="CafeDBModel.FK_OrderItems_Orders" FromRole="Orders" ToRole="OrderItems" />
         </EntityType>
         <EntityType Name="Seats">
           <Key>
@@ -320,18 +305,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderItems_Combos">
-          <End Role="Combos" Type="Self.Combos" Multiplicity="0..1" />
-          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Combos">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="OrderItems">
-              <PropertyRef Name="ComboID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Dishes_DishType">
           <End Role="DishType" Type="Self.DishType" Multiplicity="1" />
           <End Role="Dishes" Type="Self.Dishes" Multiplicity="*" />
@@ -341,30 +314,6 @@
             </Principal>
             <Dependent Role="Dishes">
               <PropertyRef Name="TypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderItems_Dishes">
-          <End Role="Dishes" Type="Self.Dishes" Multiplicity="0..1" />
-          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Dishes">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="OrderItems">
-              <PropertyRef Name="DishID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderItems_Orders">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
-          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="OrderItems">
-              <PropertyRef Name="OrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -385,7 +334,6 @@
           <EntitySet Name="Combos" EntityType="Self.Combos" />
           <EntitySet Name="Dishes" EntityType="Self.Dishes" />
           <EntitySet Name="DishType" EntityType="Self.DishType" />
-          <EntitySet Name="OrderItems" EntityType="Self.OrderItems" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Seats" EntityType="Self.Seats" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -397,28 +345,79 @@
             <End Role="Dishes" EntitySet="Dishes" />
             <End Role="ComboDishes" EntitySet="ComboDishes" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderItems_Combos" Association="Self.FK_OrderItems_Combos">
-            <End Role="Combos" EntitySet="Combos" />
-            <End Role="OrderItems" EntitySet="OrderItems" />
-          </AssociationSet>
           <AssociationSet Name="FK_Dishes_DishType" Association="Self.FK_Dishes_DishType">
             <End Role="DishType" EntitySet="DishType" />
             <End Role="Dishes" EntitySet="Dishes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItems_Dishes" Association="Self.FK_OrderItems_Dishes">
-            <End Role="Dishes" EntitySet="Dishes" />
-            <End Role="OrderItems" EntitySet="OrderItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItems_Orders" Association="Self.FK_OrderItems_Orders">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Seats" Association="Self.FK_Orders_Seats">
             <End Role="Seats" EntitySet="Seats" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <EntitySet Name="OrderItems" EntityType="CafeDBModel.OrderItems" />
+          <AssociationSet Name="FK_OrderItems_Combos" Association="CafeDBModel.FK_OrderItems_Combos">
+            <End Role="Combos" EntitySet="Combos" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_Dishes" Association="CafeDBModel.FK_OrderItems_Dishes">
+            <End Role="Dishes" EntitySet="Dishes" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_Orders" Association="CafeDBModel.FK_OrderItems_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="OrderItems">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="DishID" Type="Int32" />
+          <Property Name="ComboID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="PriceAtOrder" Type="Decimal" Precision="10" Scale="2" Nullable="true" />
+          <NavigationProperty Name="Combos" Relationship="CafeDBModel.FK_OrderItems_Combos" FromRole="OrderItems" ToRole="Combos" />
+          <NavigationProperty Name="Dishes" Relationship="CafeDBModel.FK_OrderItems_Dishes" FromRole="OrderItems" ToRole="Dishes" />
+          <NavigationProperty Name="Orders" Relationship="CafeDBModel.FK_OrderItems_Orders" FromRole="OrderItems" ToRole="Orders" />
+        </EntityType>
+        <Association Name="FK_OrderItems_Combos">
+          <End Type="CafeDBModel.Combos" Role="Combos" Multiplicity="0..1" />
+          <End Type="CafeDBModel.OrderItems" Role="OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Combos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="ComboID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_Dishes">
+          <End Type="CafeDBModel.Dishes" Role="Dishes" Multiplicity="0..1" />
+          <End Type="CafeDBModel.OrderItems" Role="OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dishes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="DishID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_Orders">
+          <End Type="CafeDBModel.Orders" Role="Orders" Multiplicity="1" />
+          <End Type="CafeDBModel.OrderItems" Role="OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -463,18 +462,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderItems">
-            <EntityTypeMapping TypeName="CafeDBModel.OrderItems">
-              <MappingFragment StoreEntitySet="OrderItems">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="DishID" ColumnName="DishID" />
-                <ScalarProperty Name="ComboID" ColumnName="ComboID" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="PriceAtOrder" ColumnName="PriceAtOrder" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="CafeDBModel.Orders">
               <MappingFragment StoreEntitySet="Orders">
@@ -504,6 +491,18 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderItems">
+            <EntityTypeMapping TypeName="CafeDBModel.OrderItems">
+              <MappingFragment StoreEntitySet="OrderItems">
+                <ScalarProperty Name="PriceAtOrder" ColumnName="PriceAtOrder" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ComboID" ColumnName="ComboID" />
+                <ScalarProperty Name="DishID" ColumnName="DishID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

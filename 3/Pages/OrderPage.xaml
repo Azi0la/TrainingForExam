@@ -12,12 +12,12 @@
     <Grid>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
             <Label HorizontalAlignment="Center" Content="Ваш заказ:" FontSize="30"/>
-            <Label x:Name="dcLB" Margin="10" FontSize="15"/>
-            <Label x:Name="secLB" Margin="10" FontSize="15"/>
-            <Label x:Name="salLB" Margin="10" FontSize="15"/>
-            <Label x:Name="drinkLB" Margin="10" FontSize="15"/>
-            <Label x:Name="PriceLB" Margin="10" FontSize="20"/>
-            <Label x:Name="SeatLB" Margin="10" FontSize="20"/>
+            <Label x:Name="dcLB" Margin="5" FontSize="15"/>
+            <Label x:Name="secLB" FontSize="15"/>
+            <Label x:Name="salLB"  FontSize="15"/>
+            <Label x:Name="drinkLB" FontSize="15"/>
+            <Label x:Name="PriceLB" Margin="5" FontSize="20"/>
+            <Label x:Name="SeatLB" Margin="5" FontSize="20"/>
             <Label HorizontalAlignment="Center" Content="Выберите способ оплаты" FontSize="30"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="CardBTN" Width="120" Height="50" Margin="10" Content="Карта" FontSize="26" Click="CardBTN_Click" />

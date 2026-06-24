@@ -9,17 +9,17 @@
         <EntityTypeShape EntityType="CafeDBModel.Combos" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CafeDBModel.Dishes" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CafeDBModel.DishType" Width="1.5" PointX="1.5" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="CafeDBModel.OrderItems" Width="1.5" PointX="6" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CafeDBModel.Orders" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CafeDBModel.Seats" Width="1.5" PointX="1.5" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="CafeDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
         <AssociationConnector Association="CafeDBModel.FK_ComboDishes_Combos" ManuallyRouted="false" />
         <AssociationConnector Association="CafeDBModel.FK_ComboDishes_Dishes" ManuallyRouted="false" />
-        <AssociationConnector Association="CafeDBModel.FK_OrderItems_Combos" ManuallyRouted="false" />
         <AssociationConnector Association="CafeDBModel.FK_Dishes_DishType" ManuallyRouted="false" />
-        <AssociationConnector Association="CafeDBModel.FK_OrderItems_Dishes" ManuallyRouted="false" />
-        <AssociationConnector Association="CafeDBModel.FK_OrderItems_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="CafeDBModel.FK_Orders_Seats" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CafeDBModel.OrderItems" Width="1.5" PointX="6" PointY="8" />
+        <AssociationConnector Association="CafeDBModel.FK_OrderItems_Combos" />
+        <AssociationConnector Association="CafeDBModel.FK_OrderItems_Dishes" />
+        <AssociationConnector Association="CafeDBModel.FK_OrderItems_Orders" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

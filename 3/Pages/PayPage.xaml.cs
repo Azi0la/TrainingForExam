@@ -16,59 +16,45 @@ using System.Windows.Shapes;
 namespace _3.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для OrderPage.xaml
+    /// Логика взаимодействия для PayPage.xaml
     /// </summary>
-    public partial class OrderPage : Page
+    public partial class PayPage : Page
     {
-        public static List<Seats> seats = Core.Context.Seats.ToList();
-        public decimal wp = 0;
-        public OrderPage()
+        public decimal price;
+        public PayPage(decimal _price)
         {
+            price = _price;
             InitializeComponent();
-
-
-            if (MainWindow.combo != null) 
-            {
-                dcLB.Content = (MainWindow.combo.Name + " Цена: " + MainWindow.combo.Price);
-                wp += MainWindow.combo.Price;
-            }
-            if (MainWindow.soup != null)
-            {
-                dcLB.Content = (MainWindow.soup.Name + " Цена: " + MainWindow.soup.Price);
-                wp += MainWindow.soup.Price;
-            }
-            if (MainWindow.second != null)
-            {
-                secLB.Content = (MainWindow.second.Name + " Цена: " + MainWindow.second.Price);
-                wp += MainWindow.second.Price;
-            }
-            if (MainWindow.salad != null)
-            {
-                salLB.Content = (MainWindow.salad.Name + " Цена: " + MainWindow.salad.Price);
-                wp += MainWindow.salad.Price;
-            }
-            if (MainWindow.drink != null)
-            {
-                drinkLB.Content = (MainWindow.drink.Name + " Цена: " + MainWindow.drink.Price);
-                wp += MainWindow.drink.Price;
-            }
-            PriceLB.Content = ("Общая стоимость: " + wp);
-            SeatLB.Content = ("Выбранное место: " + MainWindow.seat.Name);
-
+            PriceLB.Content = ("Общая стоимость: " + _price);
         }
 
-        private void BackBTN_Click(object sender, RoutedEventArgs e)
+        private void MoneyTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(NavigationService.CanGoBack) { NavigationService.GoBack(); }
+            if (MoneyTB.Text != "") 
+            {
+                if (decimal.Parse(MoneyTB.Text) >= price)
+                {
+                    SendBTN.IsEnabled = true;
+                    LeftLB.Content = ("Сдача: " + (decimal.Parse(MoneyTB.Text) - price));
+                }
+                else
+                {
+                    LeftLB.Content = "";
+                    SendBTN.IsEnabled = false;
+                }
+            }
+            
         }
 
-        private void CardBTN_Click(object sender, RoutedEventArgs e)
+        private void SendBTN_Click(object sender, RoutedEventArgs e)
         {
             Orders neword = new Orders
             {
                 SeatsID = MainWindow.seat.ID,
-                PaymentMethod = "Карта",
-                Total = wp
+                PaymentMethod = "Наличные",
+                Total = price,
+                WholeCash = decimal.Parse(MoneyTB.Text),
+                LeftCash = (decimal.Parse(MoneyTB.Text) - price)
             };
             Core.Context.Orders.Add(neword);
             Core.Context.SaveChanges();
@@ -124,11 +110,6 @@ namespace _3.Pages
             Core.Context.SaveChanges();
             MessageBox.Show("Заказ оформлен!");
             NavigationService.Navigate(new MainPage());
-        }
-
-        private void CashBTN_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new PayPage(wp));
         }
     }
 }

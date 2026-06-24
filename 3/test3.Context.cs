@@ -29,9 +29,9 @@ namespace _3
         public virtual DbSet<Combos> Combos { get; set; }
         public virtual DbSet<Dishes> Dishes { get; set; }
         public virtual DbSet<DishType> DishType { get; set; }
-        public virtual DbSet<OrderItems> OrderItems { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Seats> Seats { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<OrderItems> OrderItems { get; set; }
     }
 }

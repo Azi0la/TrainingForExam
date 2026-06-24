@@ -18,8 +18,8 @@ namespace _3
         public int OrderID { get; set; }
         public Nullable<int> DishID { get; set; }
         public Nullable<int> ComboID { get; set; }
-        public int Quantity { get; set; }
-        public decimal PriceAtOrder { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<decimal> PriceAtOrder { get; set; }
     
         public virtual Combos Combos { get; set; }
         public virtual Dishes Dishes { get; set; }
