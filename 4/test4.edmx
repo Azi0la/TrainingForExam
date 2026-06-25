@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище CarMechanDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Assemblies">
+          <Key>
+            <PropertyRef Name="AssemblyId" />
+          </Key>
+          <Property Name="AssemblyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="AssemblyName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="TotalPrice" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="IsPublic" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AssemblyParts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssemblyId" Type="int" Nullable="false" />
+          <Property Name="PartId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PartCategories">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parts">
+          <Key>
+            <PropertyRef Name="PartId" />
+          </Key>
+          <Property Name="PartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Price" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsAvailable" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsAdmin" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Assemblie__UserI__5812160E">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Assemblies" Type="Self.Assemblies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Assemblies">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Parts__CategoryI__534D60F1">
+          <End Role="PartCategories" Type="Self.PartCategories" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartCategories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssemblyParts_Assemblies">
+          <End Role="Assemblies" Type="Self.Assemblies" Multiplicity="1" />
+          <End Role="AssemblyParts" Type="Self.AssemblyParts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assemblies">
+              <PropertyRef Name="AssemblyId" />
+            </Principal>
+            <Dependent Role="AssemblyParts">
+              <PropertyRef Name="AssemblyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssemblyParts_Parts">
+          <End Role="Parts" Type="Self.Parts" Multiplicity="1" />
+          <End Role="AssemblyParts" Type="Self.AssemblyParts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parts">
+              <PropertyRef Name="PartId" />
+            </Principal>
+            <Dependent Role="AssemblyParts">
+              <PropertyRef Name="PartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище CarMechanDBModelContainer">
+          <EntitySet Name="Assemblies" EntityType="Self.Assemblies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AssemblyParts" EntityType="Self.AssemblyParts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartCategories" EntityType="Self.PartCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parts" EntityType="Self.Parts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Assemblie__UserI__5812160E" Association="Self.FK__Assemblie__UserI__5812160E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Assemblies" EntitySet="Assemblies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Parts__CategoryI__534D60F1" Association="Self.FK__Parts__CategoryI__534D60F1">
+            <End Role="PartCategories" EntitySet="PartCategories" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssemblyParts_Assemblies" Association="Self.FK_AssemblyParts_Assemblies">
+            <End Role="Assemblies" EntitySet="Assemblies" />
+            <End Role="AssemblyParts" EntitySet="AssemblyParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssemblyParts_Parts" Association="Self.FK_AssemblyParts_Parts">
+            <End Role="Parts" EntitySet="Parts" />
+            <End Role="AssemblyParts" EntitySet="AssemblyParts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarMechanDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Assemblies">
+          <Key>
+            <PropertyRef Name="AssemblyId" />
+          </Key>
+          <Property Name="AssemblyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="AssemblyName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="IsPublic" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Assemblie__UserI__5812160E" FromRole="Assemblies" ToRole="Users" />
+          <NavigationProperty Name="AssemblyParts" Relationship="Self.FK_AssemblyParts_Assemblies" FromRole="Assemblies" ToRole="AssemblyParts" />
+        </EntityType>
+        <EntityType Name="AssemblyParts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssemblyId" Type="Int32" Nullable="false" />
+          <Property Name="PartId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Assemblies" Relationship="Self.FK_AssemblyParts_Assemblies" FromRole="AssemblyParts" ToRole="Assemblies" />
+          <NavigationProperty Name="Parts" Relationship="Self.FK_AssemblyParts_Parts" FromRole="AssemblyParts" ToRole="Parts" />
+        </EntityType>
+        <EntityType Name="PartCategories">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Parts" Relationship="Self.FK__Parts__CategoryI__534D60F1" FromRole="PartCategories" ToRole="Parts" />
+        </EntityType>
+        <EntityType Name="Parts">
+          <Key>
+            <PropertyRef Name="PartId" />
+          </Key>
+          <Property Name="PartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="ImagePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsAvailable" Type="Boolean" />
+          <NavigationProperty Name="AssemblyParts" Relationship="Self.FK_AssemblyParts_Parts" FromRole="Parts" ToRole="AssemblyParts" />
+          <NavigationProperty Name="PartCategories" Relationship="Self.FK__Parts__CategoryI__534D60F1" FromRole="Parts" ToRole="PartCategories" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdmin" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Assemblies" Relationship="Self.FK__Assemblie__UserI__5812160E" FromRole="Users" ToRole="Assemblies" />
+        </EntityType>
+        <Association Name="FK__Assemblie__UserI__5812160E">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Assemblies" Type="Self.Assemblies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Assemblies">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssemblyParts_Assemblies">
+          <End Role="Assemblies" Type="Self.Assemblies" Multiplicity="1" />
+          <End Role="AssemblyParts" Type="Self.AssemblyParts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assemblies">
+              <PropertyRef Name="AssemblyId" />
+            </Principal>
+            <Dependent Role="AssemblyParts">
+              <PropertyRef Name="AssemblyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssemblyParts_Parts">
+          <End Role="Parts" Type="Self.Parts" Multiplicity="1" />
+          <End Role="AssemblyParts" Type="Self.AssemblyParts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parts">
+              <PropertyRef Name="PartId" />
+            </Principal>
+            <Dependent Role="AssemblyParts">
+              <PropertyRef Name="PartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Parts__CategoryI__534D60F1">
+          <End Role="PartCategories" Type="Self.PartCategories" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartCategories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarMechanDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Assemblies" EntityType="Self.Assemblies" />
+          <EntitySet Name="AssemblyParts" EntityType="Self.AssemblyParts" />
+          <EntitySet Name="PartCategories" EntityType="Self.PartCategories" />
+          <EntitySet Name="Parts" EntityType="Self.Parts" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Assemblie__UserI__5812160E" Association="Self.FK__Assemblie__UserI__5812160E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Assemblies" EntitySet="Assemblies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssemblyParts_Assemblies" Association="Self.FK_AssemblyParts_Assemblies">
+            <End Role="Assemblies" EntitySet="Assemblies" />
+            <End Role="AssemblyParts" EntitySet="AssemblyParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssemblyParts_Parts" Association="Self.FK_AssemblyParts_Parts">
+            <End Role="Parts" EntitySet="Parts" />
+            <End Role="AssemblyParts" EntitySet="AssemblyParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Parts__CategoryI__534D60F1" Association="Self.FK__Parts__CategoryI__534D60F1">
+            <End Role="PartCategories" EntitySet="PartCategories" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CarMechanDBModelContainer" CdmEntityContainer="CarMechanDBEntities">
+          <EntitySetMapping Name="Assemblies">
+            <EntityTypeMapping TypeName="CarMechanDBModel.Assemblies">
+              <MappingFragment StoreEntitySet="Assemblies">
+                <ScalarProperty Name="AssemblyId" ColumnName="AssemblyId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AssemblyName" ColumnName="AssemblyName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssemblyParts">
+            <EntityTypeMapping TypeName="CarMechanDBModel.AssemblyParts">
+              <MappingFragment StoreEntitySet="AssemblyParts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AssemblyId" ColumnName="AssemblyId" />
+                <ScalarProperty Name="PartId" ColumnName="PartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartCategories">
+            <EntityTypeMapping TypeName="CarMechanDBModel.PartCategories">
+              <MappingFragment StoreEntitySet="PartCategories">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parts">
+            <EntityTypeMapping TypeName="CarMechanDBModel.Parts">
+              <MappingFragment StoreEntitySet="Parts">
+                <ScalarProperty Name="PartId" ColumnName="PartId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CarMechanDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CarMechanDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

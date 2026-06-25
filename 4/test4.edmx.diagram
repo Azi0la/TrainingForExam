@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b437982824c94a12b8d71b6ef9ab6b9c" Name="Diagram1">
+        <EntityTypeShape EntityType="CarMechanDBModel.Assemblies" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarMechanDBModel.AssemblyParts" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarMechanDBModel.PartCategories" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarMechanDBModel.Parts" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarMechanDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarMechanDBModel.Users" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="CarMechanDBModel.FK__Assemblie__UserI__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="CarMechanDBModel.FK_AssemblyParts_Assemblies" ManuallyRouted="false" />
+        <AssociationConnector Association="CarMechanDBModel.FK_AssemblyParts_Parts" ManuallyRouted="false" />
+        <AssociationConnector Association="CarMechanDBModel.FK__Parts__CategoryI__534D60F1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
