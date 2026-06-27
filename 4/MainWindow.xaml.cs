@@ -21,6 +21,8 @@ namespace _4
     public partial class MainWindow : Window
     {
         public static Users user;
+        public static Assemblies ass;
+        public static AssemblyParts partass;
         public MainWindow()
         {
             InitializeComponent();

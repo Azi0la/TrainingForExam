@@ -25,19 +25,30 @@
             <Button x:Name="SavedBTN" Grid.Column="1" Width="100" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Content="К сохраненным &#x0a;      сборкам" Click="SavedBTN_Click"/>
             <Button x:Name="CompatBTN" Grid.Column="1" Width="100" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Content="Сохранить &#x0a;   сборку" IsEnabled="False" Click="CompatBTN_Click"/>
         </StackPanel>
+        
+        <StackPanel Grid.Column="0">
+            
+        <TabControl SelectionChanged="TabControl_SelectionChanged">
+            <TabItem Header="Кузов" Tag="1"/>
+            <TabItem Header="Двигатель" Tag="2"/>
+            <TabItem Header="Коробка передач" Tag="3"/>
+            <TabItem Header="Колёса" Tag="4"/>
+            <TabItem Header="Салон" Tag="5"/>
+            <TabItem Header="Электроника" Tag="6"/>
+        </TabControl>
 
-        <ListBox x:Name="UnitList" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox x:Name="PartsLB" MouseDoubleClick="PartsLB_MouseDoubleClick">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
                         <Image Source="{Binding ImagePath}"/>
-                        <StackPanel>
-                            <TextBlock/>
-                        </StackPanel>
-                        <Button x:Name="Butt1" Height="50" Width="80" Content="Выбрать" Click="Butt1_Click"/>
+                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding Price, StringFormat=Цена: {0}}"/>
+                        <TextBlock Text="{Binding Description}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        </StackPanel>
     </Grid>
 </Page>
