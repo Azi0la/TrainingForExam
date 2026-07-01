@@ -53,6 +53,7 @@ namespace _4.Pages
             {
                 int CategoryID = int.Parse(tab.Tag.ToString());
                 PartsLB.ItemsSource = parts.Where(p => p.CategoryId == CategoryID).ToList();
+
             }
         }
 
